@@ -5,7 +5,6 @@ import { wrapper } from '../core/store/store'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { PostItemType } from '../core/types/postsActionTypes'
-import { GetServerSideProps } from 'next'
 
 export type PagePropsTypes = {
   children: ReactNode,
@@ -31,7 +30,7 @@ const Page: FC = ({ posts }: PagePropsTypes): ReactElement => {
           <CreateNewPostNav>Create new Post</CreateNewPostNav>
         </Link>
       </Header>
-      <div>{posts && posts.posts.map((item: PostItemType) =>
+      <div>{posts && posts.posts.map(item =>
         <PostItem key={item.id}>
           <Link href={`/posts/${item.id}`}>
             <ContentTitle>{item.title}</ContentTitle>
@@ -44,7 +43,7 @@ const Page: FC = ({ posts }: PagePropsTypes): ReactElement => {
 
 export default connect((state) => state)(Page)
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
+export const getServerSideProps = wrapper.getServerSideProps(
   async ({ store }) => {
     store.dispatch(fetchPosts())
   }
