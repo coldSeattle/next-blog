@@ -1,9 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
 import thunkMiddleware from "redux-thunk";
-// import count from './count/reducer'
-// import tick from './tick/reducer'
 import posts from "../reducers/postsReducer";
+import post from "../reducers/postEmbedCommentsReducer";
 
 const bindMiddleware = (middleware) => {
   if (process.env.NODE_ENV !== "production") {
@@ -15,7 +14,10 @@ const bindMiddleware = (middleware) => {
 
 const combinedReducer = combineReducers({
   posts,
+  post,
 });
+
+export type RootState = ReturnType<typeof combinedReducer>;
 
 const reducer = (state, action) => {
   if (action.type === HYDRATE) {
