@@ -29,7 +29,7 @@ export default function reducer(
   switch (action.type) {
     case FETCH_POSTS:
       return Object.assign({}, state, {
-        posts: action.payload,
+        posts: action.payload.reverse(),
       });
     case ADD_NEW_POST:
       return Object.assign({}, state, {

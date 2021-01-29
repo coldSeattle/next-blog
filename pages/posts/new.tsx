@@ -40,6 +40,9 @@ const NewPostAddPage = () => {
                 </CreateNewPostNav>
                 </Link>
             </div>
+            <Link href={'/'}>
+                <Navigation>back</Navigation>
+            </Link>
         </PostsContainer>
     )
 }

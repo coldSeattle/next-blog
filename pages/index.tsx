@@ -88,6 +88,7 @@ export const Navigation = styled.a`
 }
   vertical-align:meddle;
   color: #ffa7c4;
+  margin-top: 3rem;
 `
 
 export const Header = styled.header`
