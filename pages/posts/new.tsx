@@ -81,13 +81,3 @@ border-color: #fff;
 color: #fff;
 margin-bottom: 1rem;
 `
-
-// export const CreateNewPostBtn = styled.a`
-// width: 200px;
-// height: 30px;
-// border-radius: 3px;
-// background: transparent;
-// border-color: #fff;
-// color: #fff;
-// margin-bottom: 1rem;
-// `
