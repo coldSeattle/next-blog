@@ -1,11 +1,11 @@
-import { useState } from "react"
+import { FC, ReactElement, useState } from "react"
 import { connect, useDispatch } from "react-redux"
 import { CreateNewPostNav, Navigation, PostsContainer, Title } from ".."
 import styled from 'styled-components'
 import Link from "next/link"
 import { addNewPostAsync } from "../../core/actions/postsActions"
 
-const NewPostAddPage = () => {
+const NewPostAddPage: FC = (): ReactElement => {
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
     const dispatch = useDispatch()
@@ -21,18 +21,24 @@ const NewPostAddPage = () => {
                     name="title"
                     id="title"
                     value={title}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTitle(event.target.value)}
+                    onChange={
+                        (event: React.ChangeEvent<HTMLInputElement>) =>
+                            setTitle(event.target.value)
+                    }
                 />
                 <BodyInput
                     rows={8}
                     name="body"
                     value={body}
-                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setBody(event.target.value)}
+                    onChange={
+                        (event: React.ChangeEvent<HTMLTextAreaElement>) =>
+                            setBody(event.target.value)
+                    }
                 />
                 <Link href={'/'}>
                     <CreateNewPostNav
                         onClick={() => {
-                            if (!title || !body) return;
+                            if (!title) return;
                             dispatch(addNewPostAsync({ title: title, body: body }))
                         }}
                     >
@@ -48,7 +54,6 @@ const NewPostAddPage = () => {
 }
 
 export default connect((state) => state)(NewPostAddPage)
-
 
 export const formContainer = styled.div`
 display: flex;

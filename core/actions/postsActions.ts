@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { root } from '../../config/api';
 import {
     AddNewPost,
     AddNewPostType,
@@ -9,6 +10,7 @@ import {
     FETCH_POSTS,
     FETCH_POST_EMBED_COMMEMTS,
     PostEmbedCommentsType,
+    PostItemType,
 } from '../types/postsActionTypes';
 
 export const fetchPostsSync = (payload: FetchPostsType): FetchPostsActionTypes => {
@@ -20,7 +22,7 @@ export const fetchPostsSync = (payload: FetchPostsType): FetchPostsActionTypes =
 
 // fetch all posts
 export const fetchPosts = () => async (dispatch) => {
-    const res = await axios.get('https://simple-blog-api.crew.red/posts');
+    const res = await root.get('/posts');
     return dispatch(fetchPostsSync(res.data));
 };
 
@@ -33,13 +35,13 @@ export const fetchPostEmbedCommentsSync = (payload: PostEmbedCommentsType): Fetc
 };
 
 export const fetchPostEmbedComments = (postId: any) => async (dispatch) => {
-    const res = await axios.get(`https://simple-blog-api.crew.red/posts/${postId}?_embed=comments`);
+    const res = await root.get(`/posts/${postId}?_embed=comments`);
     return dispatch(fetchPostEmbedCommentsSync(res.data));
 };
 
 // add new post
 
-export const addNewPostSync = (payload: PostEmbedCommentsType): AddNewPost => {
+export const addNewPostSync = (payload: PostItemType): AddNewPost => {
     return {
         type: ADD_NEW_POST,
         payload,
@@ -53,8 +55,8 @@ const options = {
 };
 
 export const addNewPostAsync = ({ title, body }: AddNewPostType) => async (dispatch) => {
-    const res = axios.post(
-        'https://simple-blog-api.crew.red/posts',
+    const res = root.post(
+        '/posts',
         {
             title: title,
             body: body,

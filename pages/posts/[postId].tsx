@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { FC, ReactElement, useEffect } from "react"
 import { useRouter } from 'next/router'
 import { wrapper } from "../../core/store/store";
 import { fetchPostEmbedComments } from "../../core/actions/postsActions";
@@ -6,18 +6,16 @@ import { connect, useDispatch } from "react-redux";
 import { usePost } from "../../core/selectors/usePost";
 import { Body, PostsContainer, ContentTitle, Title, Navigation } from "..";
 import Link from "next/link";
+import { GetServerSideProps } from "next";
 
-const Post = () => {
+const Post: FC = (): ReactElement => {
     const { post } = usePost()
     const router = useRouter()
     const { postId } = router.query
 
     const dispatch = useDispatch()
     useEffect(() => {
-        async function fetchData() {
-            dispatch(fetchPostEmbedComments(postId))
-        }
-        fetchData()
+        dispatch(fetchPostEmbedComments(postId))
     }, [])
 
     return (
@@ -50,7 +48,7 @@ export default connect((state) => state)(Post)
 
 
 
-export const getServerSideProps = wrapper.getServerSideProps(
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
     async ({ store, query }) => {
         const { postId } = query
         store.dispatch(fetchPostEmbedComments(postId))

@@ -36,11 +36,17 @@ export type AddNewPostType = {
     body: string;
 };
 
+export type PostItemType = {
+    id: number;
+    title: string;
+    body: string;
+};
+
 // add new post
 export const ADD_NEW_POST = 'ADD_NEW_POST';
 export type AddNewPost = {
     type: typeof ADD_NEW_POST;
-    payload: PostEmbedCommentsType;
+    payload: PostItemType;
 };
 
 export type FetchPostsActionTypes = FetchPostsActionType | AddNewPost;

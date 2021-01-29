@@ -1,10 +1,10 @@
-import { createStore, applyMiddleware, combineReducers, AnyAction, Action } from 'redux';
+import { createStore, applyMiddleware, combineReducers, AnyAction, Action, Middleware } from 'redux';
 import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 import thunkMiddleware from 'redux-thunk';
 import posts from '../reducers/postsReducer';
 import post from '../reducers/postEmbedCommentsReducer';
 
-const bindMiddleware = (middleware) => {
+const bindMiddleware = (middleware: Middleware[]) => {
     if (process.env.NODE_ENV !== 'production') {
         const { composeWithDevTools } = require('redux-devtools-extension');
         return composeWithDevTools(applyMiddleware(...middleware));

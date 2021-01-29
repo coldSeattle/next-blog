@@ -1,17 +1,25 @@
-import { useEffect } from 'react'
+import { FC, ReactElement, ReactNode, useEffect } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { fetchPosts } from '../core/actions/postsActions'
 import { wrapper } from '../core/store/store'
 import Link from 'next/link'
 import styled from 'styled-components'
-const Page = ({ posts }) => {
+import { PostItemType } from '../core/types/postsActionTypes'
+import { GetServerSideProps } from 'next'
+
+export type PagePropsTypes = {
+  children: ReactNode,
+  posts: PostItemType[]
+}
+
+
+const Page: FC = ({ posts }: PagePropsTypes): ReactElement => {
+
   const dispatch = useDispatch()
+
   useEffect(() => {
-    async function fetchData() {
-      const data = dispatch(fetchPosts())
-      console.log('data', data);
-    }
-    fetchData()
+
+    dispatch(fetchPosts())
   }, [])
 
   return (
@@ -23,9 +31,12 @@ const Page = ({ posts }) => {
           <CreateNewPostNav>Create new Post</CreateNewPostNav>
         </Link>
       </Header>
-      <div>{posts && posts.posts.map(item =>
+      <div>{posts && posts.posts.map((item: PostItemType) =>
         <PostItem key={item.id}>
-          <Link href={`/posts/${item.id}`}><ContentTitle>{item.title}</ContentTitle></Link></PostItem>
+          <Link href={`/posts/${item.id}`}>
+            <ContentTitle>{item.title}</ContentTitle>
+          </Link>
+        </PostItem>
       )}
       </div>
     </PostsContainer>)
@@ -33,7 +44,7 @@ const Page = ({ posts }) => {
 
 export default connect((state) => state)(Page)
 
-export const getServerSideProps = wrapper.getServerSideProps(
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
   async ({ store }) => {
     store.dispatch(fetchPosts())
   }
