@@ -6,13 +6,8 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import { PostItemType } from '../core/types/postsActionTypes'
 
-export type PagePropsTypes = {
-  children: ReactNode,
-  posts: PostItemType[]
-}
 
-
-const Page: FC = ({ posts }: PagePropsTypes): ReactElement => {
+const Page = ({ posts }) => {
 
   const dispatch = useDispatch()
 
